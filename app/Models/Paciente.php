@@ -16,6 +16,7 @@ class Paciente extends Model
         'sexo',
         'dni',
         'tipo_sangre',
+        'telefono',
         'correo',
         'direccion'
     ];

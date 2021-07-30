@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GuardarPacienteRequest extends FormRequest
+class RegistroRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,9 @@ class GuardarPacienteRequest extends FormRequest
     public function rules()
     {
         return [
-            "nombres" => "required",
-            "apellidos" => "required",
-            "edad" => "required",
-            "sexo" => "required",
-            "dni" => "required|unique:pacientes,dni",
-            "tipo_sangre" => "required",
-            "telefono" => "required",
-            "correo" => "required",
-            "direccion" => "required"
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required'
         ];
     }
 }
