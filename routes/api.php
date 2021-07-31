@@ -22,7 +22,7 @@ Route::post('login', [AutenticarController::class, 'acceso']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
-    Route::get('/user', function (Request $request) {
+    Route::get('user', function (Request $request) {
         return $request->user();
     });
     //En vez de poner cada uno de los métodos está el método apiResource
