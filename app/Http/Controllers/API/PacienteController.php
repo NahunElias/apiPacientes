@@ -17,20 +17,27 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        return Paciente::all();
+        return response()->json([
+            'res' => true,
+            'data' => Paciente::all(),
+            'msg' => 'Paciente guardado exitosamente'
+        ], 200);;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(GuardarPacienteRequest $request)
     {
-        Paciente::create($request->all());
+        //TODO Hay error cuando no pasa la validación
+        $paciente = Paciente::create($request->validated());
+
         return response()->json([
             'res' => true,
+            'data' => $paciente,
             'msg' => 'Paciente guardado exitosamente'
         ], 200);
     }
@@ -38,7 +45,7 @@ class PacienteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
 
@@ -53,27 +60,29 @@ class PacienteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(ActualizarPacienteRequest $request, Paciente $paciente)
     {
-        $paciente->update($request->all());
+        $paciente = $paciente->update($request->validated());
         return response()->json([
             'res' => true,
-            'mesg' => 'Paciente actulizado con Exito'
+            'data' => $paciente,
+            'mesg' => 'Paciente actualizado con Exito'
         ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Paciente $paciente)
     {
+        //No esta eliminando
         $paciente->delete();
         return response()->json([
             'res' => true,

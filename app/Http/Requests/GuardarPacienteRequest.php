@@ -31,8 +31,16 @@ class GuardarPacienteRequest extends FormRequest
             "dni" => "required|unique:pacientes,dni",
             "tipo_sangre" => "required",
             "telefono" => "required",
-            "correo" => "required",
+            "correo" => "required|email",
             "direccion" => "required"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'A title is required',
+            'body.required' => 'A message is required',
         ];
     }
 }

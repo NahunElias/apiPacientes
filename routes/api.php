@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\PacienteController;
-use App\Http\Controllers\AutenticarController;
+use App\Http\Controllers\API\AutenticarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,19 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post('registro', [AutenticarController::class, 'registro']);
-Route::post('acceso', [AutenticarController::class, 'acceso']);
+//URIs de las rutas en ingles, al igual que los nombres de los controladores
+Route::post('register', [AutenticarController::class, 'registro']);
+Route::post('login', [AutenticarController::class, 'acceso']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('pacientes', [PacienteController::class, 'index']);
-    Route::post('pacientes', [PacienteController::class, 'store']);
-    Route::get('pacientes/{paciente}', [PacienteController::class, 'show']);
-    Route::put('pacientes/{paciente}', [PacienteController::class, 'update']);
-    Route::delete('pacientes/{paciente}', [PacienteController::class, 'destroy']);
 
-    Route::post('cerrarsesion', [AutenticarController::class, 'cerrarSesion']);
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    //En vez de poner cada uno de los métodos está el método apiResource
+    Route::apiResource('patients', PacienteController::class);
+    Route::post('logout', [AutenticarController::class, 'cerrarSesion']);
 });
